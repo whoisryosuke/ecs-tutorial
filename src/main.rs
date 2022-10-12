@@ -1,15 +1,20 @@
 use crate::ecs::world::World;
 mod ecs;
 
+// Our "Components"
 struct Health(i32);
 struct Name(&'static str);
 
 fn main() {
+    // Create a new "World" to store our Components and Entities
     let mut world = World::new();
-    let entity0 = world.new_entity();
-    world.add_component_to_entity(entity0, Health(100));
-    world.add_component_to_entity(entity0, Name("Ryo"));
 
+    // Create a new Entity inside the World
+    let ryo = world.new_entity();
+    world.add_component_to_entity(ryo, Health(100));
+    world.add_component_to_entity(ryo, Name("Ryo"));
+
+    // Grab all components from world that match the type we provide
     let mut all_health = world
         .borrow_component_vec::<Health>()
         .expect("No health found");
